@@ -1,5 +1,14 @@
+//INICIO DA PARTE DE KAYQUE
 
+//FIM DA PARTE DE KAYQUE
 
+//INICIO DA PARTE DE GREGUE
+
+//FIM DA PARTE DE GREGUE
+
+// INICIO DA PARTE DE GABRIEL
+
+//FIM DA PARTE DE GABRIEL
 
 class Biblioteca {
 public:
@@ -33,3 +42,91 @@ private:
 vector<Livro> Biblioteca::livros;
 
 
+int main() {
+    int opcao;
+    string titulo, autor;
+    int numCopias;
+    Usuario* usuarioAtual = nullptr;  // Ponteiro para o usuario atual
+
+    // Loop do menu principal
+    while (true) {
+        cout << "\n--- Menu Biblioteca ---\n";
+        cout << "1. Adicionar livro\n";
+        cout << "2. Registrar usuario\n";
+        cout << "3. Pegar livro emprestado\n";
+        cout << "4. Verificar disponibilidade de livro\n";
+        cout << "5. Listar livros emprestados por usuario\n";
+        cout << "6. Sair\n";
+        cout << "\nEscolha uma opcao: ";
+        cin >> opcao;
+        cin.ignore();
+
+        // Opções do menu
+        switch (opcao) {
+            case 1:
+                // Adicionar livro à biblioteca
+                cout << "Título: ";
+                getline(cin, titulo);
+                cout << "Autor: ";
+                getline(cin, autor);
+                cout << "Número de cópias: ";
+                cin >> numCopias;
+                Biblioteca::adicionarLivro(titulo, autor, numCopias);
+                break;
+            
+            case 2:
+                // Registrar um novo usuario
+                cout << "Nome do usuario: ";
+                getline(cin, titulo);
+                usuarioAtual = new Usuario(titulo);
+                break;
+
+            case 3:
+                // Pegar um livro emprestado
+                if (usuarioAtual) {
+                    cout << "Título do livro para emprestar: ";
+                    getline(cin, titulo);
+                    for (auto &livro : Biblioteca::getLivros()) {
+                        if (livro.getTitulo() == titulo && livro.getNumCopias() > 0) {
+                            usuarioAtual->pegarLivro(livro);
+                            cout << "Livro emprestado com sucesso!\n";
+                            break;
+                        }
+                    }
+                } else {
+                    cout << "Primeiro, registre um usuario.\n";
+                }
+                break;
+
+            case 4:
+                // Verificar disponibilidade de um livro
+                cout << "Título do livro para verificar disponibilidade: ";
+                getline(cin, titulo);
+                if (Biblioteca::verificarDisponibilidade(titulo)) {
+                    cout << "O livro está disponível para Emprestimo.\n";
+                } else {
+                    cout << "O livro não está disponível para Emprestimo.\n";
+                }
+                break;
+
+            case 5:
+                // Listar livros emprestados por um usuario
+                if (usuarioAtual) {
+                    cout << "Livros emprestados para " << usuarioAtual->nome << ":\n";
+                    Biblioteca::listarLivrosEmprestados(*usuarioAtual);
+                } else {
+                    cout << "Primeiro, registre um usuario.\n";
+                }
+                break;
+
+            case 6:
+                // Sair do programa
+                if (usuarioAtual) delete usuarioAtual;
+                return 0;
+
+            default:
+                cout << "Opção inválida. Tente novamente.\n";
+                break;
+        }
+    }
+}
