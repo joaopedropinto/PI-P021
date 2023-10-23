@@ -34,7 +34,30 @@ private:
 //FIM DA PARTE DE GREGUE
 
 // INICIO DA PARTE DE GABRIEL
+// Classe para representar um usuario
+class Usuario {
+public:
+    string nome;  // Nome do usuario, tornando público por simplicidade
 
+    Usuario(const string &nome) : nome(nome) {}
+
+    // Método para o usuario pegar um livro emprestado
+    void pegarLivro(Livro &livro) {
+        livro.emprestar();
+        time_t now = time(0);
+        string data = ctime(&now);
+        data = data.substr(0, data.length()-1);  // Remover o '\n' do final
+        emprestimos.push_back(Emprestimo(&livro, data));
+    }
+
+    // Método para obter os livros emprestados pelo usuario
+    vector<Emprestimo> getEmprestimos() const {
+        return emprestimos;
+    }
+
+private:
+    vector<Emprestimo> emprestimos;  // Lista de livros emprestados pelo usuario
+};
 //FIM DA PARTE DE GABRIEL
 
 class Biblioteca {
