@@ -1,6 +1,33 @@
-//INICIO DA PARTE DE KAYQUE
+#include <iostream>
+#include <vector>
+#include <string>
+#include <ctime>
 
-//FIM DA PARTE DE KAYQUE
+using namespace std;
+
+// Classe para representar um Livro
+class Livro {
+public:
+    // Construtor da classe Livro
+    Livro(const string &titulo, const string &autor, int numCopias) 
+        : titulo(titulo), autor(autor), numCopias(numCopias) {}
+
+    // Métodos para obter informações do livro
+    string getTitulo() const { return titulo; }
+    string getAutor() const { return autor; }
+    int getNumCopias() const { return numCopias; }
+
+    // Método para emprestar um livro, decrementando a quantidade disponível
+    void emprestar() { if(numCopias > 0) numCopias--; }
+    
+    // Método para devolver um livro, incrementando a quantidade disponível
+    void devolver() { numCopias++; }
+
+private:
+    string titulo;
+    string autor;
+    int numCopias;
+};
 
 //INICIO DA PARTE DE GREGUE
 
