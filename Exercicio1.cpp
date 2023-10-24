@@ -29,11 +29,19 @@ private:
     int numCopias;
 };
 
-//INICIO DA PARTE DE GREGUE
+// Classe para representar um Emprestimo de livro
+class Emprestimo {
+public:
+    Emprestimo(Livro *livro, const string &data) : livro(livro), data(data) {}
 
-//FIM DA PARTE DE GREGUE
+    Livro* getLivro() const { return livro; }
+    string getData() const { return data; }
 
-// INICIO DA PARTE DE GABRIEL
+private:
+    Livro* livro;  // Ponteiro para o livro emprestado
+    string data;   // Data do Emprestimo
+};
+
 // Classe para representar um usuario
 class Usuario {
 public:
@@ -58,7 +66,6 @@ public:
 private:
     vector<Emprestimo> emprestimos;  // Lista de livros emprestados pelo usuario
 };
-//FIM DA PARTE DE GABRIEL
 
 class Biblioteca {
 public:
